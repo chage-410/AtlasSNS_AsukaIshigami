@@ -1,19 +1,28 @@
 <x-logout-layout>
 
-  <!-- 適切なURLを入力してください -->
-  {!! Form::open(['url' => '〇〇']) !!}
+  <div class="login-container">
 
-  <p>AtlasSNSへようこそ</p>
+    <div class="service-logo">
+      <img src="{{ asset('images/atlas.png') }}" alt="Atlas" class="logo-image">
+    </div>
+    <h2 class="service-subtitle">Social Network Service</h2>
 
-  {{ Form::label('email') }}
-  {{ Form::text('email',null,['class' => 'input']) }}
-  {{ Form::label('password') }}
-  {{ Form::password('password',['class' => 'input']) }}
+    <div class="login-form-wrapper">
+      <p class="welcome-message">AtlasSNSへようこそ</p>
 
-  {{ Form::submit('ログイン') }}
+      {!! Form::open(['url' => 'login', 'method' => 'POST', 'class' => 'login-form']) !!}
 
-  <p><a href="register">新規ユーザーの方はこちら</a></p>
+      {{ Form::label('email', 'メールアドレス') }}
+      {{ Form::text('email',null,['class' => 'input-field']) }}
+      {{ Form::label('password', 'パスワード') }}
+      {{ Form::password('password',['class' => 'input-field']) }}
 
-  {!! Form::close() !!}
+      {{ Form::submit('ログイン', ['class' => 'login-button']) }}
+
+      {!! Form::close() !!}
+
+      <p class="register-link-wrapper"><a href="register" class="register-link">新規ユーザーの方はこちら</a></p>
+    </div>
+  </div>
 
 </x-logout-layout>

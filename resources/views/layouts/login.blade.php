@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+@props(['followingCount', 'followerCount'])
 <html>
 
 <head>
@@ -22,6 +23,7 @@
   <!--iphoneのアプリアイコン指定-->
   <link rel="apple-touch-icon-precomposed" href="画像のURL" />
   <!--OGPタグ/twitterカード-->
+
 </head>
 
 <body>
@@ -35,19 +37,17 @@
     </div>
     <div id="side-bar">
       <div id="confirm">
-        <p>〇〇さんの</p>
+        <p><?php $username = Auth::user(); ?>{{ $username->username }}さんの</p>
         <div>
-          <p>フォロー数</p>
-          <p>〇〇名</p>
+          <p>フォロー数　　　　{{ $followingCount }}名</p>
         </div>
-        <p class="btn"><a href="">フォローリスト</a></p>
+        <button class="btn"><a href="{{ url('follow-list') }}">フォローリスト</a></button>
         <div>
-          <p>フォロワー数</p>
-          <p>〇〇名</p>
+          <p>フォロワー数　　　{{ $followerCount }}名</p>
         </div>
-        <p class="btn"><a href="">フォロワーリスト</a></p>
+        <button class="btn"><a href="{{ url('follower-list') }}">フォロワーリスト</a></button>
       </div>
-      <p class="btn"><a href="">ユーザー検索</a></p>
+      <p class="btn"><a href="{{ url('search') }}">ユーザー検索</a></p>
     </div>
   </div>
   <footer>

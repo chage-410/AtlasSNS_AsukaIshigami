@@ -8,18 +8,16 @@
         {{ csrf_field() }}
         <!-- 投稿画面全体 -->
         <div class="post-action">
-          <div class="post-inner">
-            <!-- アイコン -->
-            <img src=" {{ $user->icon_image ? asset('storage/icons/' . $user->icon_image) : asset('images/icon1.png') }}"
-              alt="アイコン">
-            <!-- 投稿フォーム -->
-            <textarea class="post-form" name="post" rows="3" placeholder="投稿内容を入力してください。">{{ old('post') }}</textarea>
-
-            <!-- 投稿ボタン -->
-            <button type="submit">
-              <img src="../../../images/post.png" alt="投稿">
-            </button>
-          </div>
+          <!-- アイコン -->
+          <img src=" {{ $user->icon_image ? asset('storage/icons/' . $user->icon_image) : asset('images/icon1.png') }}"
+            alt="アイコン">
+          <!-- 投稿フォーム -->
+          <input class="post-form" type="text" name="post"
+            placeholder="投稿内容を入力してください。">
+          <!-- 投稿ボタン -->
+          <button type="submit">
+            <img src="../../../images/post.png" alt="投稿">
+          </button>
         </div>
 
         @if($errors->first('post'))
@@ -38,7 +36,7 @@
             <div class="post-content">
               <div class="post-header">
                 <div class="post-name">{{ $post->user->username }}</div>
-                <div>{{ $post->created_at->format('Y-m-d H:i') }}</div>
+                <div>{{ $post->created_at }}</div>
               </div>
 
               <!-- 編集ボタンと削除ボタン：自分の投稿のみ表示 -->
@@ -58,7 +56,7 @@
               @endif
 
               <div class="post-main">
-                <div>{!! nl2br(e($post->post)) !!}</div>
+                <div>{{ $post->post }}</div>
               </div>
             </div>
           </li>

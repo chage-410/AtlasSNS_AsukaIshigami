@@ -30,17 +30,28 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        User::create([
+        //バリデート
+        $request->validate([
+            'username' => ['required', 'min:2', 'max:12'],
+            'email' => ['required', 'min:5', 'max:40', 'unique:users,email', 'email'],
+            'password' => ['required', 'confirmed', 'alpha_num', 'min:8', 'max:20', Rules\Password::defaults()],
+        ]);
+        //判定入れる
+        $username = $request->input('username');
+        //ユーザー作成（）
+        User::create([ // Userテーブルに入れる
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect('added');
+        return redirect('/added')->with('username', $username);
     }
 
-    public function added(): View
+    public function added(Request $request)
     {
-        return view('auth.added');
+        //新規登録後ユーザー名を表示させたい
+        $username = $request->input('username');
+        return view('auth.added', ['username' => $username]);
     }
 }

@@ -26,10 +26,19 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
         return redirect()->intended('top');
+
+        //ユーザー名をログイン後に表示させたい
+        // $username = $request->input('username');
+        // return redirect()->intended('top', ['username' => $username]);
     }
 
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
 }
